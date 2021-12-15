@@ -16,10 +16,7 @@ func runRPC(res *dockertest.Resource) error {
 	if err := genRPC(res); err != nil {
 		return err
 	}
-	if err := runRPCSrv(res); err != nil {
-		return err
-	}
-	return nil
+	return runRPCSrv(res)
 }
 
 func genRPC(res *dockertest.Resource) error {
@@ -31,22 +28,18 @@ func genRPC(res *dockertest.Resource) error {
 		return err
 	}
 	displayCmd(showRPCDirCmd)
-	if _, err := res.Exec(showRPCDirCmd, dockertest.ExecOptions{
+	_, err := res.Exec(showRPCDirCmd, dockertest.ExecOptions{
 		StdOut: os.Stdout,
 		StdErr: os.Stderr,
-	}); err != nil {
-		return err
-	}
-	return nil
+	})
+	return err
 }
 
 func runRPCSrv(res *dockertest.Resource) error {
 	displayCmd(runRPCCmd)
-	if _, err := res.Exec(runRPCCmd, dockertest.ExecOptions{
+	_, err := res.Exec(runRPCCmd, dockertest.ExecOptions{
 		StdOut: os.Stdout,
 		StdErr: os.Stderr,
-	}); err != nil {
-		return err
-	}
-	return nil
+	})
+	return err
 }

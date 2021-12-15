@@ -1,10 +1,14 @@
 FROM golang:alpine
 
+ENV CGO_ENABLED 0
+ENV GOOS linux
+ENV GOPROXY https://goproxy.cn,direct
+
 RUN apk update --no-cache
 RUN apk add --no-cache tree
 RUN apk add --no-cache protoc
-RUN GOPROXY=https://goproxy.cn,direct go install github.com/golang/protobuf/protoc-gen-go@master
-RUN GOPROXY=https://goproxy.cn,direct go install github.com/tal-tech/go-zero/tools/goctl@cli
+RUN go install github.com/golang/protobuf/protoc-gen-go@master
+RUN go install github.com/tal-tech/go-zero/tools/goctl@cli
 
 WORKDIR /app
 

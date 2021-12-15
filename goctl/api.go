@@ -16,10 +16,7 @@ func runAPI(res *dockertest.Resource) error {
 	if err := genAPI(res); err != nil {
 		return err
 	}
-	if err := runAPISrv(res); err != nil {
-		return err
-	}
-	return nil
+	return runAPISrv(res)
 }
 
 func genAPI(res *dockertest.Resource) error {
@@ -31,22 +28,18 @@ func genAPI(res *dockertest.Resource) error {
 		return err
 	}
 	displayCmd(showAPIDirCmd)
-	if _, err := res.Exec(showAPIDirCmd, dockertest.ExecOptions{
+	_, err := res.Exec(showAPIDirCmd, dockertest.ExecOptions{
 		StdOut: os.Stdout,
 		StdErr: os.Stderr,
-	}); err != nil {
-		return err
-	}
-	return nil
+	})
+	return err
 }
 
 func runAPISrv(res *dockertest.Resource) error {
 	displayCmd(runAPICmd)
-	if _, err := res.Exec(runAPICmd, dockertest.ExecOptions{
+	_, err := res.Exec(runAPICmd, dockertest.ExecOptions{
 		StdOut: os.Stdout,
 		StdErr: os.Stderr,
-	}); err != nil {
-		return err
-	}
-	return nil
+	})
+	return err
 }
