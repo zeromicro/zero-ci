@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package remote;
+
+option go_package = "remote";
+
+message TestRequest {
+  string id = 1;
+}
+
+message TestResponse {
+  string id = 1;
+}
+
+service Test {
+  rpc Login(TestRequest)returns(TestResponse);
+}
