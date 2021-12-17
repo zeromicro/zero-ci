@@ -80,5 +80,5 @@ func curlSrv(res *dockertest.Resource) error {
 		time.Sleep(time.Second * 5)
 		count++
 	}
-	return fmt.Errorf("api server star failure")
+	return fmt.Errorf("api server start failure")
 }
