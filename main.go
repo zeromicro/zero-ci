@@ -17,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	resource, err := goctlBuildAndRun(pool, *dir)
+	resource, err := goctl.BuildAndRun(pool, *dir)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -27,13 +27,4 @@ func main() {
 	if err = pool.Purge(resource); err != nil {
 		log.Fatal(err)
 	}
-}
-
-func goctlBuildAndRun(pool *dockertest.Pool, contextDir string) (*dockertest.Resource, error) {
-	return pool.BuildAndRunWithBuildOptions(&dockertest.BuildOptions{
-		ContextDir: contextDir,
-	}, &dockertest.RunOptions{
-		Name: "goctl",
-		Tag:  "latest",
-	})
 }
