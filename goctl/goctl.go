@@ -7,6 +7,8 @@ import (
 	"github.com/ory/dockertest/v3"
 )
 
+var successLabel = "Done"
+
 func Run(res *dockertest.Resource) error {
 	if err := runAPI(res); err != nil {
 		return err
@@ -21,6 +23,15 @@ func Run(res *dockertest.Resource) error {
 		return err
 	}
 	return runDocker(res)
+}
+
+func BuildAndRun(pool *dockertest.Pool, contextDir string) (*dockertest.Resource, error) {
+	return pool.BuildAndRunWithBuildOptions(&dockertest.BuildOptions{
+		ContextDir: contextDir,
+	}, &dockertest.RunOptions{
+		Name: "goctl",
+		Tag:  "latest",
+	})
 }
 
 func displayCmd(cmd []string) {
